@@ -33,29 +33,29 @@ jobs:
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
-      - name: West Build (HexyChoc Left)
-        run: west build -s zmk/app -b nice_nano -- -DSHIELD=choc_ergo_left -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: HexyChoc DTS File
+      - name: West Build (Twoyo Left)
+        run: west build -s zmk/app -b nice_nano -- -DSHIELD=twoyo_left -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Twoyo DTS File
         if: ${{ always() }}
         run: cat -n build/zephyr/nice_nano.dts.pre.tmp
-      - name: HexyChoc Left Kconfig file
+      - name: Twoyo Left Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Rename zmk.uf2
-        run: cp build/zephyr/zmk.uf2 choc_ergo_left_nice_nano.uf2
-      - name: Archive (HexyChoc Left)
+        run: cp build/zephyr/zmk.uf2 twoyo_left_nice_nano.uf2
+      - name: Archive (Twoyo Left)
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: choc_ergo_left_nice_nano.uf2
-      - name: West Build (HexyChoc Right)
-        run: west build --pristine -s zmk/app -b nice_nano -- -DSHIELD=choc_ergo_right -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+          path: twoyo_left_nice_nano.uf2
+      - name: West Build (Twoyo Right)
+        run: west build --pristine -s zmk/app -b nice_nano -- -DSHIELD=twoyo_right -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
 
-      - name: HexyChoc Right Kconfig file
+      - name: Twoyo Right Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Rename zmk.uf2
-        run: cp build/zephyr/zmk.uf2 choc_ergo_right_nice_nano.uf2
-      - name: Archive (HexyChoc Right)
+        run: cp build/zephyr/zmk.uf2 twoyo_right_nice_nano.uf2
+      - name: Archive (Twoyo Right)
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: choc_ergo_right_nice_nano.uf2
+          path: twoyo_right_nice_nano.uf2
